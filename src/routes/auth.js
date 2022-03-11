@@ -6,9 +6,10 @@ require('dotenv').config();
 const { registerDataSchema, loginDataSchema, regDataSchema, logDataSchema } = require("../schemas/user");
 
 //register a new user in the system
-router.post("/register", (req, res, next) => {
+router.post("/register", async (req, res, next) => {
     try{
-        res.json({"email": req.body.email, "pass": req.body.password})
+        const validate = await registerDataSchema.validateAsync(req.body);
+        res.json({"email": validate.email, "pass": validate.password})
     } catch (err){
         res.json(err)
     }

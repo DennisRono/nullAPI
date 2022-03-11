@@ -4,7 +4,7 @@ const registerDataSchema = Joi.object({
     email: Joi.string().email().lowercase().required(),
     phone: Joi.string().min(10).max(10).required(),
     password: Joi.string().min(8).required().strict(),
-    confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict()
+    cpassword: Joi.string().valid(Joi.ref('password')).required().strict()
 });
 
 const loginDataSchema = Joi.object({
