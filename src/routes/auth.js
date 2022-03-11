@@ -49,7 +49,7 @@ router.post("/login", async (req, res, next) => {
                 const refreshToken = jwt.sign({ data: user.UserID }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' });
                 return res.set({ 'auth-token': token, 'refreshToken': refreshToken }).json({ 'auth-token': token, 'refresh-token': refreshToken });
             } else {
-                return res.json({ success: false, message: 'passwords do not match' });
+                return res.json({"status": 422,"type":"Error","success":"false","message":"Wrong password!"});
             }
         })
     })
