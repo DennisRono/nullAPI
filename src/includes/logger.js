@@ -1,7 +1,6 @@
 'use strict'
 const Format = require('json-format');
 let fs = require('fs');
-let moment = require('moment');
 
 let filename = 'cron-logs.json';
 
