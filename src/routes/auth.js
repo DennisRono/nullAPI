@@ -66,7 +66,7 @@ router.get('/token', async(req, res, next) => {
         });
         next()
     } catch (error) {
-        res.status(400).send({ "invalid refreshToken": error });
+        res.status(400).json({"status": 422,"type":"Error","success":"false","message":"invalid refresh token","details":error});
     }
 });
 
