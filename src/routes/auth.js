@@ -49,7 +49,7 @@ router.post("/login", async (req, res, next) => {
                 const refreshToken = jwt.sign({ data: user.UserID }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' });
                 return res.set({ 'auth-token': token, 'refreshToken': refreshToken }).json({ 'auth-token': token, 'refresh-token': refreshToken });
             } else {
-                return res.json({"status": 422,"type":"Error","success":"false","message":"Wrong password!"});
+                return res.status(400).json({"status": 400,"type":"Error","success":"false","message":"Wrong password!"});
             }
         })
     })
@@ -66,7 +66,7 @@ router.get('/token', async(req, res, next) => {
         });
         next()
     } catch (error) {
-        res.status(400).json({"status": 422,"type":"Error","success":"false","message":"invalid refresh token","details":error});
+        res.status(400).json({"status": 400,"type":"Error","success":"false","message":"invalid refresh token","details":error});
     }
 });
 
