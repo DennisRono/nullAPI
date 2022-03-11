@@ -3,9 +3,9 @@ const fs = require('fs');
 // ...
 
 // Remove the error.log file every twenty-first day of the month.
-cron.schedule('0 0 21 * *', function() {
+cron.schedule('* * */25 * *', function() {
     console.log('---------------------');
-    console.log('Running Cron Job');
+    console.log('Deleting logs');
     fs.unlink('./cron-logs.json', err => {
       if (err) throw err;
       console.log('Error file successfully deleted');
