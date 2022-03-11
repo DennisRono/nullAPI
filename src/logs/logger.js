@@ -3,7 +3,6 @@ const Format = require('json-format');
 let fs = require('fs');
 
 const logdir = __dirname
-let filename = logdir+'/cron-logs.json';
 
 //get today's time
 const getTime = () => {
@@ -15,6 +14,8 @@ const todayDate = () => {
     let todaydate = "log"+today.getDate()+"-"+(today.getMonth()+1)+"-"+today.getFullYear();
     return todaydate
 }
+
+let filename = logdir+'/'+todayDate()+'.json';
 
 //generate unique id
 const genId = () => {
