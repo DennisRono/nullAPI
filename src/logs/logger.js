@@ -2,7 +2,8 @@
 const Format = require('json-format');
 let fs = require('fs');
 
-let filename = 'cron-logs.json';
+const logdir = __dirname
+let filename = logdir+'/cron-logs.json';
 
 //get today's time
 const getTime = () => {
