@@ -11,7 +11,10 @@ const { registerDataSchema, loginDataSchema, regDataSchema, logDataSchema } = re
 router.post("/register", async (req, res, next) => {
     try{
         const validate = await registerDataSchema.validateAsync(req.body);
-        res.json(validate)
+        await db.one(validate.email).then((user) => {
+            if (user) return res.status(400).json({"status": 422,"type":"Error","message":"user is already registered!"});
+            res.json(validate)
+        })
     } catch (err){
         if (err.isJoi === true) {
             res.status(422).json({"status": 422,"type":"Error","message":err.details[0].message});
