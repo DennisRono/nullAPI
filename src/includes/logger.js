@@ -96,3 +96,10 @@ const logger = (newlogs) => {
     writingLogs(newlogs);
   }
 }
+
+let newlogs =  {
+    id: genId(),
+    Status: 'nothing to commit, working tree clean',
+    TimePushed: getTime()
+}
+logger(newlogs);
