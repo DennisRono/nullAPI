@@ -5,7 +5,7 @@ const { dirname } = require('path');
 
 const appDir = dirname(require.main.filename);
 const logdir = __dirname
-console.log(dirname());
+console.log(dirname(require.main));
 
 //get today's time
 const getTime = () => {
