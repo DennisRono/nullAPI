@@ -88,7 +88,7 @@ const logger = (newlogs) => {
             console.log('Created file: '+filename);
             fs.writeFileSync(filename, Format({}, config));
             //add logfile to gitignore
-            fs.appendFile(root+'.gitignore', filename.replace(__dirname+"/", "")+'\n', function (err) {
+            fs.appendFile(root+'/.gitignore', filename.replace(__dirname+"/", "")+'\n', function (err) {
               if (err) throw err;
             });
             writingLogs(newlogs);
