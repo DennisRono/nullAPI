@@ -42,6 +42,9 @@ router.post("/login", async (req, res, next) => {
     const validate = await loginDataSchema.validateAsync(req.body);
     await db.one(validate.email).then((user) => {
         if (!user) return res.status(400).json({"status": 422,"type":"Error","message":"user is not registered!"});
+        bcrypt.compare(req.body.password, user.Password, function(err, result) {
+            if (err) {return res.status(422).send({ "wrong password!": err });}
+        })
     })
 })
 
