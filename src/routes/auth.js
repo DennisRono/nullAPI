@@ -37,4 +37,12 @@ router.post("/register", async (req, res, next) => {
     }
 })
 
+//login a user to the system
+router.post("/login", async (req, res, next) => {
+    const validate = await loginDataSchema.validateAsync(req.body);
+    await db.one(validate.email).then((user) => {
+        if (!user) return res.status(400).json({"status": 422,"type":"Error","message":"user is not registered!"});
+    })
+})
+
 module.exports = router;
