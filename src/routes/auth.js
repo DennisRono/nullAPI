@@ -11,7 +11,11 @@ router.post("/register", async (req, res, next) => {
         const validate = await registerDataSchema.validateAsync(req.body);
         res.json({"email": validate.email, "pass": validate.password})
     } catch (err){
-        res.json(err)
+        if (err.isJoi === true) {
+            res.status(422).json(err.details[0].message);
+        } else {
+            res.status(500).json(err);
+        }
     }
 })
 
