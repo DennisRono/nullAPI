@@ -12,9 +12,9 @@ router.post("/register", async (req, res, next) => {
         res.json({"email": validate.email, "pass": validate.password})
     } catch (err){
         if (err.isJoi === true) {
-            res.status(422).json(err.details[0].message);
+            res.status(422).json({"status": 422,"type":"Error","message":err.details[0].message});
         } else {
-            res.status(500).json(err);
+            res.status(500).json({"status": 422,"type":"Error","message":err});
         }
     }
 })
