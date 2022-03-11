@@ -8,7 +8,7 @@ const { registerDataSchema, loginDataSchema, regDataSchema, logDataSchema } = re
 //register a new user in the system
 router.post("/register", (req, res, next) => {
     try{
-
+        res.json({"email": req.body.email, "pass": req.body.password})
     } catch (err){
         res.json(err)
     }
