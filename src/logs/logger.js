@@ -3,9 +3,8 @@ const Format = require('json-format');
 let fs = require('fs');
 const { dirname } = require('path');
 
-const appDir = dirname(require.main.filename);
 const logdir = __dirname
-console.log(dirname(require.main));
+console.log(root);
 
 //get today's time
 const getTime = () => {
