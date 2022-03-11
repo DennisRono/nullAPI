@@ -4,7 +4,7 @@ let fs = require('fs');
 const { dirname } = require('path');
 
 const logdir = __dirname
-console.log(root);
+console.log(process.mainModule.paths[0].split('node_modules')[0].slice(0, -1));
 
 //get today's time
 const getTime = () => {
