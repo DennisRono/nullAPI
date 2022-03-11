@@ -44,6 +44,13 @@ router.post("/login", async (req, res, next) => {
         if (!user) return res.status(400).json({"status": 422,"type":"Error","message":"user is not registered!"});
         bcrypt.compare(req.body.password, user.Password, function(err, result) {
             if (err) {return res.status(422).send({ "wrong password!": err });}
+            if (result) {
+                const token = jwt.sign({ data: user.UserID }, process.env.TOKEN_SECRET, { expiresIn: '15m' });
+                const refreshToken = jwt.sign({ data: user.UserID }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' });
+                return res.set({ 'auth-token': token, 'refreshToken': refreshToken }).json({ 'auth-token': token, 'refresh-token': refreshToken });
+            } else {
+                return res.json({ success: false, message: 'passwords do not match' });
+            }
         })
     })
 })
