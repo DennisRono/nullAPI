@@ -11,7 +11,7 @@ const getTime = () => {
 //today's date
 const todayDate = () => {
     const today = new Date();
-    let todaydate = "log"+today.getDate()+"-"+(today.getMonth()+1)+"-"+today.getFullYear();
+    let todaydate = today.getDate()+"-"+(today.getMonth()+1)+"-"+today.getFullYear();
     return todaydate
 }
 
