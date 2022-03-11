@@ -12,7 +12,7 @@ router.post("/register", async (req, res, next) => {
     try{
         const validate = await registerDataSchema.validateAsync(req.body);
         await db.one(validate.email).then((user) => {
-            if (user) {return res.status(400).json({"status": 422,"type":"Error","message":"user is already registered!"});}
+            if (user) {return res.status(400).json({"status": 400,"type":"Error","message":"user is already registered!"});}
             else{
                 bcrypt.genSalt(10, (err, salt) => {
                     if (err) {return res.status(422).send(err.message);}
@@ -23,16 +23,16 @@ router.post("/register", async (req, res, next) => {
                             let uobj = { "email": validate.email, "password": hash, "phone": validate.phone, "userID": userid }
                             db.create(uobj);
                             res.json(uobj);
-                        } catch (err) { res.status(500).json({"status": 422,"type":"Error","details":err}); }
+                        } catch (err) { res.status(500).json({"status": 500,"type":"Error","details":err}); }
                     })
                 })
             }
         })
     } catch (err){
         if (err.isJoi === true) {
-            res.status(422).json({"status": 422,"type":"Error","message":err.details[0].message});
+            res.status(400).json({"status": 400,"type":"Error","message":err.details[0].message});
         } else {
-            res.status(500).json({"status": 422,"type":"Error","details":err});
+            res.status(500).json({"status": 500,"type":"Error","details":err});
         }
     }
 })
@@ -41,7 +41,7 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
     const validate = await loginDataSchema.validateAsync(req.body);
     await db.one(validate.email).then((user) => {
-        if (!user) return res.status(400).json({"status": 422,"type":"Error","message":"user is not registered!"});
+        if (!user) return res.status(400).json({"status": 400,"type":"Error","message":"user is not registered!"});
         bcrypt.compare(req.body.password, user.Password, function(err, result) {
             if (err) {return res.status(422).send({ "wrong password!": err });}
             if (result) {
