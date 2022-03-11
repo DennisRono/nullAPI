@@ -7,7 +7,11 @@ const { registerDataSchema, loginDataSchema, regDataSchema, logDataSchema } = re
 
 //register a new user in the system
 router.post("/register", (req, res, next) => {
+    try{
 
+    } catch (err){
+        res.json(err)
+    }
 })
 
 module.exports = router;
