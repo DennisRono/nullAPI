@@ -1,2 +1,3 @@
-var path = require('path');
-global.root = path.resolve(__dirname);
+import * as path from 'path'
+const root = path.resolve(__dirname)
+module.exports = root
