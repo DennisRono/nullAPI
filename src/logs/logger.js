@@ -1,6 +1,7 @@
 'use strict'
 const Format = require('json-format');
 let fs = require('fs');
+const root = require('../../index')
 
 const logdir = __dirname
 
