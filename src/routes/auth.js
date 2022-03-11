@@ -4,7 +4,7 @@ const db = require("../includes/auth");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { registerDataSchema, loginDataSchema, regDataSchema, logDataSchema } = require("../schemas/user");
+const { registerDataSchema, loginDataSchema } = require("../schemas/user");
 
 
 //register a new user in the system
