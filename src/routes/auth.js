@@ -21,7 +21,7 @@ router.post("/register", async (req, res, next) => {
         if (err.isJoi === true) {
             res.status(422).json(jsonFormat({"status": 422,"type":"Error","message":err.details[0].message}, config));
         } else {
-            res.status(500).json({"status": 422,"type":"Error","message":err});
+            res.status(500).json(jsonFormat({"status": 422,"type":"Error","message":err}, config));
         }
     }
 })
