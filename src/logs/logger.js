@@ -16,7 +16,6 @@ const todayDate = () => {
 }
 
 let filename = logdir+'/'+todayDate()+'.json';
-console.log(filename);
 
 //generate unique id
 const genId = () => {
