@@ -32,7 +32,7 @@ router.post("/register", async (req, res, next) => {
         if (err.isJoi === true) {
             res.status(422).json({"status": 422,"type":"Error","message":err.details[0].message});
         } else {
-            res.status(500).json({"status": 422,"type":"Error","message":err});
+            res.status(500).json({"status": 422,"type":"Error","details":err});
         }
     }
 })
