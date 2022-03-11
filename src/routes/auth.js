@@ -10,7 +10,7 @@ const { registerDataSchema, loginDataSchema, regDataSchema, logDataSchema } = re
 router.post("/register", async (req, res, next) => {
     try{
         const validate = await registerDataSchema.validateAsync(req.body);
-        res.json({"email": validate.email, "pass": validate.password})
+        res.json(validate)
     } catch (err){
         if (err.isJoi === true) {
             res.status(422).json({"status": 422,"type":"Error","message":err.details[0].message});
