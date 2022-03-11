@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const jsonFormat = require('jsonformat');
 require('dotenv').config();
 const { registerDataSchema, loginDataSchema, regDataSchema, logDataSchema } = require("../schemas/user");
 
