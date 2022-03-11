@@ -12,8 +12,16 @@ router.post("/register", async (req, res, next) => {
     try{
         const validate = await registerDataSchema.validateAsync(req.body);
         await db.one(validate.email).then((user) => {
-            if (user) return res.status(400).json({"status": 422,"type":"Error","message":"user is already registered!"});
-            res.json(validate)
+            if (user) {return res.status(400).json({"status": 422,"type":"Error","message":"user is already registered!"});}
+            else{
+                bcrypt.genSalt(10, (err, salt) => {
+                    if (err) {return res.status(422).send(err.message);}
+                    bcrypt.hash(validate.password, salt, (err, hash) => {
+                        if (err) {return res.status(422).send(err.message);}
+                        let userid = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2);
+                    })
+                })
+            }
         })
     } catch (err){
         if (err.isJoi === true) {
