@@ -9,6 +9,7 @@ const options = require('./config/corsOptions')
 
 //routes
 const authRoute = require('./routes/auth')
+const denContact = require('./routes/contact')
 
 //middlewares
 app.use(cors(options))
@@ -22,5 +23,6 @@ app.use(
 )
 
 app.use('/auth', authRoute)
+app.use('/den', denContact)
 
 app.listen(PORT, ()=>{console.log(`server is running on port: ${PORT}`)})
