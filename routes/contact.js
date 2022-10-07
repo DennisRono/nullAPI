@@ -21,11 +21,10 @@ router.post('/contact', upload.array('profile-files', 12), async (req, res) => {
         const validate = await contactDataSchema.validateAsync(req.body)
         let messageid = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
         try {
-            const filePath = req.protocol + "://" +"denniskibet.com"+ '/' + req.file.path
-            let mobj = { name: validate.name, email: validate.email, phone: validate.phone, website: validate.website, brief: validate.brief, assets: filePath, messageid: messageid }
+            let mobj = { name: validate.name, email: validate.email, phone: validate.phone, website: validate.website, brief: validate.brief, assets: validate.assets, messageid: messageid }
             db.create(mobj, (message, r) => {
                 //send mail to denniskibet
-                sendEmail("New Contact From Portfolio!", "Message from "+validate.name+"<br><br>"+validate.website+"<br><br>"+validate.phone+"<br><br>"+validate.brief, "dennisrkibet@gmail.com", validate.email, validate.email)
+                //sendEmail("New Contact From Portfolio!", "Message from "+validate.name+"<br><br>"+validate.website+"<br><br>"+validate.phone+"<br><br>"+validate.brief, "dennisrkibet@gmail.com", validate.email, validate.email)
                 res.json({status: 200, type: "success", message: message, response: r})
             })
         } catch (err) { res.json({"status": 500,"type":"Error","details":err}) }
