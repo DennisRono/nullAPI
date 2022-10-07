@@ -21,9 +21,8 @@ app.use(
         extended: true
     })
 )
-app.use('/public', express.static("public"))
-
-//image upload dest
+app.use('/uploads', express.static("uploads"))
+app.use(express.static(__dirname + '/public'))
 
 app.use('/auth', authRoute)
 app.use('/den', denContact)
