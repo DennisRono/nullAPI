@@ -1,4 +1,4 @@
-let whitelist = ['http://localhost:3000']
+let whitelist = ['http://localhost:3000', 'https://denniskibet.com']
 
 let options = {
     origin: (origin, callback) => {

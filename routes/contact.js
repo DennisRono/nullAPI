@@ -9,8 +9,10 @@ router.post('/contact', async (req, res) => {
         let messageid = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
         try {
             let mobj = { name: validate.name, email: validate.email, phone: validate.phone, website: validate.website, brief: validate.brief, assets: validate.assets, messageid: messageid }
-            db.create(mobj)
-            res.json({status: 200, type: "success", message: "Message sent successfully!"})
+            db.create(mobj, (message, r) => {
+                //send mail to denniskibet
+                res.json({status: 200, type: "success", message: message, response: r})
+            })
         } catch (err) { res.json({"status": 500,"type":"Error","details":err}) }
     } catch (err) {
         if (err.isJoi === true) {
