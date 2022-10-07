@@ -6,8 +6,7 @@ const contactDataSchema = Joi.object({
     phone: Joi.string().min(10).max(10).required(),
     website: Joi.string().required(),
     brief: Joi.string().required(),
-    assets: Joi.string(),
-    files: Joi.array()
+    assets: Joi.object()
 });
 
 module.exports = { contactDataSchema };
