@@ -21,6 +21,9 @@ app.use(
         extended: true
     })
 )
+app.use('/public', express.static("public"))
+
+//image upload dest
 
 app.use('/auth', authRoute)
 app.use('/den', denContact)
