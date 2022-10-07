@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-router.post('/contact', upload.array('files', 12), async (req, res) => {
+router.post('/contact', upload.array('files'), async (req, res) => {
     try {
         const validate = await contactDataSchema.validateAsync(req.body)
         let messageid = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
