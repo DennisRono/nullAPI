@@ -12,7 +12,7 @@ router.post('/contact', async (req, res) => {
             let mobj = { name: validate.name, email: validate.email, phone: validate.phone, website: validate.website, brief: validate.brief, assets: validate.assets, messageid: messageid }
             db.create(mobj, (message, r) => {
                 //send mail to denniskibet
-                sendEmail("New Contact From Portfolio!", "Message from "+validate.name+"<br>"+validate.website+"<br>"+validate.phone+"<br>"+validate.brief, "dennisrkibet@gmail.com", validate.email, validate.email)
+                sendEmail("New Contact From Portfolio!", "Message from "+validate.name+"<br><br>"+validate.website+"<br><br>"+validate.phone+"<br><br>"+validate.brief, "dennisrkibet@gmail.com", validate.email, validate.email)
                 res.json({status: 200, type: "success", message: message, response: r})
             })
         } catch (err) { res.json({"status": 500,"type":"Error","details":err}) }
