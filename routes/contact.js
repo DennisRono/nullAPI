@@ -20,7 +20,6 @@ const upload = multer({ storage: storage })
 
 router.post('/contact', upload.array('assets', 10), async (req, res) => {
     try {
-        console.log(req.files);
         const validate = await contactDataSchema.validateAsync(req.body)
         let messageid = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
         try {
