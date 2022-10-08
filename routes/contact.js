@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const db = require("../includes/contact")
+const path = require('path')
 const { contactDataSchema } = require("../schemas/contact")
 const { sendEmail } = require("../includes/mailer")
 const multer = require('multer')
@@ -8,7 +9,7 @@ const multer = require('multer')
 //image upload dest
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, './uploads1'));
+      cb(null, path.join(__dirname, '../uploads'));
     },
     filename: function (req, file, cb) {
       cb(null, file.fieldname + '-' + Date.now() + file.originalname.match(/\..*$/)[0]);
@@ -21,6 +22,7 @@ router.post('/contact', upload.array('assets', 10), async (req, res) => {
     try {
         //const validate = await contactDataSchema.validateAsync(req.body)
         const validate = req.body
+        console.log(validate.name);
         let messageid = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
         try {
             let mobj = { name: validate.name, email: validate.email, phone: validate.phone, website: validate.website, brief: validate.brief, assets: validate.assets, messageid: messageid }
