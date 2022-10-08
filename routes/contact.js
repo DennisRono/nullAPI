@@ -8,18 +8,70 @@ const multer = require('multer')
 //image upload dest
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './uploads')
+      cb(null, path.join(__dirname, './uploads'));
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname)
-    }
-})
+      cb(
+        null,
+        file.fieldname + '-' + Date.now() + file.originalname.match(/\..*$/)[0],
+      );
+    },
+  });
+  const multi_upload = multer({
+    storage,
+    fileFilter: (req, file, cb) => {
+      if (
+        file.mimetype == 'image/png' ||
+        file.mimetype == 'image/jpeg' ||
+        file.mimetype == 'image/jpg'
+      ) {
+        cb(null, true);
+      } else {
+        cb(null, false);
+        const err = new Error('Only .jpg .jpeg .png images are supported!');
+        err.name = 'ExtensionError';
+        return cb(err);
+      }
+    },
+  }).array('uploadImages', 10);
+  app.post('/api/upload', (req, res) => {
+      multi_upload(req, res, function (err) {
+        console.log(req.files);
+      //multer error
+      if (err instanceof multer.MulterError) {
+        console.log(err);
+        res
+          .status(500)
+          .send({
+            error: { msg: `multer uploading error: ${err.message}` },
+          })
+          .end();
+        return;
+      } else if (err) {
+        //unknown error
+        if (err.name == 'ExtensionError') {
+          res
+            .status(413)
+            .send({ error: { msg: `${err.message}` } })
+            .end();
+        } else {
+          res
+            .status(500)
+            .send({ error: { msg: `unknown uploading error: ${err.message}` } })
+            .end();
+        }
+        return;
+      }
+      res.status(200).send('file uploaded');
+    });
+});
+
 const upload = multer({ storage: storage })
 
 router.post('/contact', upload.array('assets'), async (req, res) => {
-    console.log(req.body);
     try {
-        const validate = await contactDataSchema.validateAsync(req.body)
+        //const validate = await contactDataSchema.validateAsync(req.body)
+        const validate = req.body
         let messageid = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2)
         try {
             let mobj = { name: validate.name, email: validate.email, phone: validate.phone, website: validate.website, brief: validate.brief, assets: validate.assets, messageid: messageid }
