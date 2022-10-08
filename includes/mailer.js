@@ -13,8 +13,6 @@ const sendEmail = async (subject, message, send_to, sent_from, reply_to) => {
     },
   });
 
-  console.log(process.env.EMAIL_HOST, process.env.EMAIL_USER, process.env.EMAIL_PASS);
-
   const options = {
     from: sent_from,
     to: send_to,
