@@ -34,7 +34,7 @@ router.post('/contact', upload.array('assets', 10), async (req, res) => {
                     res.json({status: 500, type: "Error", message: message, response: r})
                 } else {
                     //send mail to denniskibet
-                    sendEmail("New Contact From Portfolio!", "Message from "+validate.name+"<br><br>"+validate.website+"<br><br>"+validate.phone+"<br><br>"+validate.brief, "dennisrkibet@gmail.com", validate.email, validate.email)
+                    sendEmail("New Contact From Portfolio!", "Message from "+validate.name+"<br><br>"+validate.website+"<br><br>"+validate.phone+"<br><br>"+validate.brief, "dennisrkibet@gmail.com", validate.email, validate.email, filenames)
                     res.json({status: 200, type: "success", message: message, response: r})
                 }
             })
