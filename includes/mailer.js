@@ -13,8 +13,7 @@ const sendEmail = async (subject, message, send_to, sent_from, reply_to, attachm
     },
   })
 
-  let r = attachments
-  let y = r.substring(1).split('#')
+  let y = attachments.substring(1).split('#')
   let x = []
   for (let i = 0; i < y.length; i++) {
       x.push({
