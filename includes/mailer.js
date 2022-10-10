@@ -19,7 +19,7 @@ const sendEmail = async (subject, message, send_to, sent_from, reply_to, attachm
   for (let i = 0; i < y.length; i++) {
       x.push({
               filename: y[i],
-              path: './uploads/'+y[i]
+              path: path.join(__dirname, './uploads/')+y[i]
       })
   }
 
